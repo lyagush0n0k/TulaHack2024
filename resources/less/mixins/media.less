@@ -1,0 +1,27 @@
+@import '../vars/breakpoints';
+
+.mediaTo(@maxWidth, @content) {
+    @media (max-width: @maxWidth) {
+        @content();
+    }
+}
+
+.mediaMobile(@content) {
+    .mediaTo(@breakMobile, @content);
+}
+
+.mediaMobileBig(@content) {
+    .mediaTo(@breakMobileBig, @content);
+}
+
+.mediaTablet(@content) {
+    .mediaTo(@breakTablet, @content);
+}
+
+.mediaLaptop(@content) {
+    .mediaTo(@breakLaptop, @content);
+}
+
+.mediaLaptopMax(@content) {
+    .mediaTo(@breakLaptopMax, @content);
+}
