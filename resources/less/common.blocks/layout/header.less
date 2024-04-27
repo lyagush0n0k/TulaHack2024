@@ -4,23 +4,16 @@
 
     &__row {
         display: flex;
-        height: 110px;
-    }
-
-    &__section {
-        &-menu{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+        padding: 34px 0;
     }
 
     &__nav {
         .nav__list {
             display: flex;
             gap: 40px;
-            &-item{
-                a{
+
+            &-item {
+                a {
                     color: rgb(94, 94, 94);
                     font-family: @segoe;
                     font-size: 16px;
@@ -30,16 +23,59 @@
                     transition: all .5s ease;
                     padding: 10px 0;
 
-                    &.active{
+                    &.active {
                         border-bottom: 4px solid @linkHover;
                         border-radius: 3px;
                     }
-                    &:hover{
+
+                    &:hover {
                         color: @linkHover;
                     }
 
                 }
             }
+        }
+    }
+
+    &__user {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+
+        .user {
+            &__name {
+                font-size: 16px;
+                font-family: @segoe;
+                color: @disableGray;
+                span {
+                    font-weight: bold;
+                }
+            }
+            &__photo{
+                width: 50px;
+                height: 50px;
+                box-sizing: border-box;
+                border-radius: 50px;
+                border: 1px solid rgb(244, 155, 51);
+                background-position: center;
+                background-size: cover;
+            }
+        }
+
+    }
+
+    &__section {
+        &-menu, &-user {
+            display: flex;
+            align-items: center;
+        }
+
+        &-menu {
+            justify-content: space-between;
+            padding-right: 60px;
+            border-right: 2px solid @linkHover;
         }
     }
 }

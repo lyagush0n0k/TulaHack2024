@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "@inertiajs/react";
 
 class Header extends React.Component<any, any> {
     render() {
@@ -32,6 +33,14 @@ class Header extends React.Component<any, any> {
                                 </nav>
                             </div>
                             <div className={'header__section-user container__sections-right'}>
+                                <Link href="/" className={'header__user'}>
+                                    <div className={'user__name'}>
+                                            <span>Bob&nbsp;</span>
+                                            Smith
+                                    </div>
+                                    <div className={'user__photo'} style={{backgroundImage:'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfv3NWK5Y_OjtsVBBgh9MnE23QWLG5iCFgHIOOfADuZQ&s"'}}   >
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                     </div>
