@@ -23,9 +23,19 @@ class DetailController extends Controller
             ->where('type', 'workday')
             ->where('day_of_week', $currentDayOfWeek)->first();
 
-        $schedule = ['starts_at' => $todaySchedule->starts_at,
-            'ends_at' => $todaySchedule->ends_at];
-        $bookings = Booking::where('user_id', auth()->check() ? auth()->user()->id : null)->where('restaurant_id', $id)->get();
+        $schedule = [
+            'starts_at' => null,
+            'ends_at' => null
+        ];
+
+        if ($todaySchedule) {
+            $schedule['starts_at'] = $todaySchedule->starts_at;
+            $schedule['ends_at'] = $todaySchedule->ends_at;
+        }
+
+        $bookings = Booking::where('user_id', auth()->check() ? auth()->user()->id : null)
+            ->where('restaurant_id', $id)
+            ->get();
 
         return Inertia::render('Detail', ['restaurant' => $restaurant, 'schedule' => $schedule, 'bookings' => $bookings]);
     }
