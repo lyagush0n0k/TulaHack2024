@@ -17,6 +17,20 @@ import '../../less/common.blocks/detail/detail.less';
 import Select from 'react-select';
 import {DatePicker} from 'rsuite';
 import 'rsuite/dist/rsuite.css';
+import { Fancybox } from '@fancyapps/ui';
+import '@fancyapps/ui/dist/fancybox/fancybox.css';
+
+const options = {
+    Toolbar: {
+        display: {
+            left: [],
+            middle: [],
+            right: ['close'],
+        },
+    },
+};
+
+Fancybox.bind('[data-fancybox="Single image"]', options);
 
 export default class Detail extends React.Component {
     render() {
@@ -177,9 +191,11 @@ export default class Detail extends React.Component {
                                             </form>
                                         </div>
                                         <div className={'detail__booking-right'}>
-                                            <img
-                                                src="https://media.maximilians.ru/chelny/page/contacts/plan-chelny-min.jpg"
-                                                alt=""/>
+                                            <a data-fancybox="Single image" href="https://media.maximilians.ru/chelny/page/contacts/plan-chelny-min.jpg">
+                                                <img
+                                                    src="https://media.maximilians.ru/chelny/page/contacts/plan-chelny-min.jpg"
+                                                    alt=""/>
+                                            </a>
                                         </div>
                                     </div>
 
