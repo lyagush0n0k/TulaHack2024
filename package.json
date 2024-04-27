@@ -24,6 +24,7 @@
         "vite": "^5.0"
     },
     "dependencies": {
-        "less": "^4.2.0"
+        "less": "^4.2.0",
+        "segoe-fonts": "^1.0.1"
     }
 }
