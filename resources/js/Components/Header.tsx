@@ -53,23 +53,24 @@ export default function Header({auth}: { auth: any }) {
                                     {auth.user ? (
                                             <li className="nav__list-item">
 
-                                                <Link href={route('logout')} method="post">
+                                                <a href={route('logout')} method="post">
                                                     Выйти
-                                                </Link>
+                                                </a>
                                             </li>
                                         ) :
                                         (
                                             <>
                                                 <li className="nav__list-item">
-                                                    <Link
+                                                    <a
                                                         onClick={() => setShowLoginModal(true)}
                                                     >
                                                         Войти
-                                                    </Link>
+                                                    </a>
                                                 </li>
                                                 <li className="nav__list-item">
                                                     <a
-                                                        onClick={() => setShowRegisterModal(true)}
+
+                                                          onClick={() => setShowRegisterModal(true)}
                                                     >
                                                         Регистрация
                                                     </a>

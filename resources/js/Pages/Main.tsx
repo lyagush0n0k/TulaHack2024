@@ -4,7 +4,7 @@ import {Link} from '@inertiajs/react';
 import RightBlock from '@/Components/RightBlock';
 import {PageProps} from "@/types";
 
-export default function Main({ auth, restaurants }: PageProps & { restaurants: any[] }) {
+export default function Main({auth, restaurants}: PageProps & { restaurants: any[] }) {
 
     return (
         <>
@@ -16,7 +16,7 @@ export default function Main({ auth, restaurants }: PageProps & { restaurants: a
                                 <h2 className={'restaurant__title'}>Рестораны</h2>
                                 <div className={'restaurant-items'}>
                                     <div className={'restaurant-items__list'}>
-                                        {restaurants.map((item, index) => (
+                                        {restaurants && restaurants.map((item, index) => (
                                             <Link href={route('detail', {id: item.id})}
                                                   className={'restaurant-items__item'}>
                                                 <img src={'/img/resturant.png'} alt={'Логотип ресторана'}
