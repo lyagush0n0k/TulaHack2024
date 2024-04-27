@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             AvatarSeeder::class,
             PermissionsSeeder::class,
             RolesSeeder::class,
+            RestaurantSeeder::class,
+            RestaurantScheduleItemSeeder::class,
         ]);
 
         User::factory()->create([
