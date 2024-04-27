@@ -182,7 +182,7 @@ export default function Detail({auth, restaurant, schedule, bookings}: PageProps
                                             </div>
                                             <div className={'detail__order-block'}>
                                                 <People/>
-                                                <p>{item.guest_count} Guests</p>
+                                                <p>Гостей: {item.guest_count}</p>
                                             </div>
                                         </div>
                                         <button className={'detail__cansel'}>Cancel Booking</button>
