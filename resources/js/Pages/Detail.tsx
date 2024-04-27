@@ -19,6 +19,10 @@ import {DatePicker} from 'rsuite';
 import 'rsuite/dist/rsuite.css';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
+import {Swiper, SwiperSlide} from 'swiper/react';
+import 'swiper/less';
+import 'swiper/css/pagination';
+import {Autoplay, Pagination} from "swiper/modules";
 
 const options = {
     Toolbar: {
@@ -95,9 +99,30 @@ export default class Detail extends React.Component {
                                     </div>
 
                                     <div className={'detail__container'}>
-                                        <img className={'detail__image'}
-                                             src="https://www.nam-nyam.ru/upload/iblock/cca/ccae030b0714d7d9271654d02acde786.jpg"
-                                             alt=""/>
+                                        <Swiper
+                                            spaceBetween={20}
+                                            slidesPerView={1}
+                                            loop={true}
+                                            autoplay={{
+                                                delay: 2500,
+                                                disableOnInteraction: false,
+                                            }}
+                                            modules={[Autoplay, Pagination]}
+                                            pagination={{
+                                                clickable: true,
+                                            }}
+                                        >
+                                            <SwiperSlide>
+                                                <img className={'detail__image'}
+                                                     src="https://www.nam-nyam.ru/upload/iblock/cca/ccae030b0714d7d9271654d02acde786.jpg"
+                                                     alt=""/>
+                                            </SwiperSlide>
+                                            <SwiperSlide>
+                                                <img className={'detail__image'}
+                                                     src="https://www.nam-nyam.ru/upload/iblock/cca/ccae030b0714d7d9271654d02acde786.jpg"
+                                                     alt=""/>
+                                            </SwiperSlide>
+                                        </Swiper>
                                     </div>
 
                                     <div className={'detail__container detail--border-bottom'}>

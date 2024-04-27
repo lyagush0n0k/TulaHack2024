@@ -133,6 +133,12 @@
             display: flex;
             gap: 40px;
             align-items: center;
+
+            .mediaTablet({
+                flex-direction: column;
+                gap: 20px;
+                align-items: start;
+            });
         }
     }
 
@@ -152,6 +158,10 @@
     &__container--booking {
         display: flex;
         gap: 10px;
+
+        .mediaTablet({
+            flex-direction: column-reverse;
+        });
     }
 
     &__booking-left {
