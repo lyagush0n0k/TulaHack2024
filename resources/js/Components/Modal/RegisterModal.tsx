@@ -19,6 +19,7 @@ export default function RegisterModal({visible, onClose, changeModal}: Props) {
     email: '',
     phone: '',
     password: '',
+    sex: 'male',
     password_confirmation: '',
   });
 
@@ -90,6 +91,17 @@ export default function RegisterModal({visible, onClose, changeModal}: Props) {
             />
 
             <InputError message={errors.phone} className="mt-2"/>
+          </div>
+
+          <div className="mt-4">
+            <InputLabel htmlFor="sex" value="Пол"/>
+
+            <select onChange={(e) => setData('sex', e.target.value)} id="sex" name="sex">
+              <option value="male" selected>Мужской</option>
+              <option value="female">Женский</option>
+            </select>
+
+            <InputError message={errors.sex} className="mt-2"/>
           </div>
 
           <div className="mt-4">
