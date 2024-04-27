@@ -154,7 +154,7 @@ export default function Detail({auth, restaurant, schedule, bookings}: PageProps
                                         </div>
                                         <div className={'detail__description-right'}>
                                             <div className={'detail__description-block detail__description-block' +
-                                                '--baseline'}>
+                                            '--baseline'}>
                                                 <div className={'detail__logo'}>
                                                     <Burger/>
                                                 </div>
@@ -222,7 +222,7 @@ export default function Detail({auth, restaurant, schedule, bookings}: PageProps
                                                         className={'detail__select-time'}/>
                                             </div>
                                             <button className={'detail__button-submit' +
-                                                ' detail__button-submit--booking'} type={'submit'}>
+                                            ' detail__button-submit--booking'} type={'submit'}>
                                                 Забронировать
                                             </button>
                                         </form>
