@@ -7,7 +7,7 @@ export default function MainLayout({children}: PropsWithChildren<{ header?: Reac
         <>
             <div className="canvas">
                 <Header/>
-                <main>{children}</main>
+                <main className={'main'}>{children}</main>
             </div>
             <Footer/>
         </>
