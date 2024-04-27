@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->integer('restaurant_id');
             $table->integer('table_id');
             $table->integer('user_id');
+            $table->integer('guest_count');
             $table->datetime('starts_at');
             $table->dateTime('ends_at');
             $table->enum('status', ['waiting', 'accepted', 'cancelled']);
