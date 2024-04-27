@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Restaurant;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -12,6 +13,7 @@ class MainController extends Controller
      */
     public function getMain(): Response
     {
-        return Inertia::render('Main');
+        $restaurants = Restaurant::paginate(25);
+        return Inertia::render('Main', ['restaurants' => $restaurants]);
     }
 }

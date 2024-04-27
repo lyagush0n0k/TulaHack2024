@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('restaurant_schedule_items', function (Blueprint $table) {
             $table->id();
             $table->integer('restaurant_id');
+            $table->enum('day_of_week', ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
             $table->time('starts_at');
             $table->time('ends_at');
             $table->enum('type', ['workday', 'break']);
