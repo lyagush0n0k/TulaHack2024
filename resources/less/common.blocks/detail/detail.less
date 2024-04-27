@@ -42,6 +42,11 @@
                 gap: 10px;
             });
         }
+
+        &--error {
+            background: rgba(244, 155, 51, 0.21);
+            padding: 10px;
+        }
     }
 
     &__image {
@@ -123,5 +128,43 @@
             font-size: 16px;
             font-weight: 700;
         }
+
+        &-send {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+    }
+
+    &__button-submit {
+        padding: 10px 40px;
+        border-radius: 5px;
+        background: rgb(244, 155, 51);
+        color: white;
+        height: max-content;
+
+        &--booking {
+            padding: 10px 20px;
+            width: max-content;
+        }
+    }
+
+    &__container--booking {
+        display: flex;
+        gap: 10px;
+    }
+
+    &__booking-left {
+        flex: 0 1 50%;
+    }
+
+    &__booking-right {
+        flex: 0 1 50%;
+    }
+
+    &__form-order-submit {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 }

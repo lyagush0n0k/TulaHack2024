@@ -14,9 +14,53 @@ import Calendar from '../../../public/img/calendar.svg?react';
 // @ts-ignore
 import People from '../../../public/img/people.svg?react';
 import '../../less/common.blocks/detail/detail.less';
+import Select from 'react-select';
+import {DatePicker} from "rsuite";
+import "rsuite/dist/rsuite.css";
 
 export default class Detail extends React.Component {
     render() {
+        const timeOptions = [
+            {value: '1', label: '1'},
+            {value: '2', label: '2'},
+            {value: '3', label: '3'},
+            {value: '4', label: '4'},
+            {value: '5', label: '5'},
+            {value: '6', label: '6'},
+            {value: '7', label: '7'},
+            {value: '8', label: '8'},
+            {value: '9', label: '9'},
+            {value: '10', label: '10'},
+            {value: '11', label: '11'},
+            {value: '12', label: '12'},
+        ];
+
+        const peopleOptions = [
+            {value: '1', label: '1'},
+            {value: '2', label: '2'},
+            {value: '3', label: '3'},
+            {value: '4', label: '4'},
+            {value: '5', label: '5'},
+            {value: '6', label: '6'},
+            {value: '7', label: '7'},
+            {value: '8', label: '8'},
+            {value: '9', label: '9'},
+            {value: '10', label: '10'},
+        ];
+
+        const tableOptions = [
+            {value: '1', label: '1'},
+            {value: '2', label: '2'},
+            {value: '3', label: '3'},
+            {value: '4', label: '4'},
+            {value: '5', label: '5'},
+            {value: '6', label: '6'},
+            {value: '7', label: '7'},
+            {value: '8', label: '8'},
+            {value: '9', label: '9'},
+            {value: '10', label: '10'},
+        ];
+
         return (
             <>
                 <MainLayout>
@@ -99,7 +143,48 @@ export default class Detail extends React.Component {
                                     </div>
 
                                     <div className={'detail__container'}>
-
+                                        <form action="" className={'detail__order-send'}>
+                                            <div className={'detail__input'}>
+                                                <p>Дата бронирования:</p>
+                                                <DatePicker/>
+                                            </div>
+                                            <div className={'detail__input'}>
+                                                <p>Время бронирования:</p>
+                                                <Select placeholder={''} options={timeOptions}
+                                                        className={'detail__select-time'}/>
+                                            </div>
+                                            <div className={'detail__input'}>
+                                                <p>Количество людей:</p>
+                                                <Select placeholder={''} options={peopleOptions}
+                                                        className={'detail__select-people'}/>
+                                            </div>
+                                            <button className={'detail__button-submit'} type={'submit'}>
+                                                Найти
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div className={'detail__container detail__container--error'}>
+                                        <p>По данному времени свободных столиков нет</p>
+                                    </div>
+                                    <div className={'detail__container detail__container--booking'}>
+                                        <div className={'detail__booking-left'}>
+                                            <form className={'detail__form-order-submit'} action="">
+                                                <div className={'detail__input'}>
+                                                    <p>Номер столика:</p>
+                                                    <Select placeholder={''} options={tableOptions}
+                                                            className={'detail__select-time'}/>
+                                                </div>
+                                                <button className={'detail__button-submit' +
+                                                    ' detail__button-submit--booking'} type={'submit'}>
+                                                    Забронировать
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div className={'detail__booking-right'}>
+                                            <img
+                                                src="https://media.maximilians.ru/chelny/page/contacts/plan-chelny-min.jpg"
+                                                alt=""/>
+                                        </div>
                                     </div>
 
                                 </div>
