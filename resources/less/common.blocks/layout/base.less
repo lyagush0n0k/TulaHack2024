@@ -26,9 +26,18 @@
         &-left {
             grid-column: 1 / 3;
             width: 100%;
+            .mediaLaptopMini({
+                grid-column: 1 / 4;
+            });
         }
         &-right {
             grid-column: 3;
+            .mediaLaptopMini({
+                display: none;
+            });
         }
     }
+    .mediaMobileBig({
+        max-width: 90%;
+    });
 }
