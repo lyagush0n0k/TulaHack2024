@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\DetailController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [MainController::class, 'getMain'])->name('main');
+Route::get('/detail', [DetailController::class, 'getDetail'])->name('detail');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
