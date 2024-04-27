@@ -36,7 +36,7 @@ export default function Sidebar({ children, user }: PropsWithChildren<{ user: Us
             >
             <img
               className="rounded-md group transition-all w-[48px] h-[48px]"
-              src={user.profile_image}
+              src={user.avatar?.path}
               alt={user.name}
             />
             <span className={classNames('overflow-hidden transition-all',

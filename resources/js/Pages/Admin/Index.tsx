@@ -1,10 +1,10 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
+import AdminLayout from '@/Layouts/AdminLayout';
 
 export default function Index({ auth }: PageProps) {
   return (
-    <AuthenticatedLayout
+    <AdminLayout
       user={auth.user}
       header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
     >
@@ -17,6 +17,6 @@ export default function Index({ auth }: PageProps) {
           </div>
         </div>
       </div>
-    </AuthenticatedLayout>
+    </AdminLayout>
   );
 }
