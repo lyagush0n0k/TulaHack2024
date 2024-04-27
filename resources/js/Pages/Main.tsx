@@ -6,7 +6,7 @@ class Main extends React.Component {
         return (
             <>
                 <MainLayout>
-                    lo
+
                 </MainLayout>
             </>
         );
