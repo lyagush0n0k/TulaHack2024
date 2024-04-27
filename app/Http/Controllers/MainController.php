@@ -12,6 +12,6 @@ class MainController extends Controller
      */
     public function getMain(): Response
     {
-        return Inertia::render('Main');
+        return Inertia::render('Welcome');
     }
 }
