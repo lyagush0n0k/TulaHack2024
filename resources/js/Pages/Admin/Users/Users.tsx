@@ -1,4 +1,4 @@
-import {Head, router} from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import {PageProps, User} from '@/types';
 import AdminLayout from '@/Layouts/AdminLayout';
 import {PaginatedCollection} from '@/types/PaginatedCollection';
@@ -83,6 +83,9 @@ export default function Users({auth, users}: Props) {
                                         <td className="px-4 py-4 break-words"><a
                                             href={'mailto:' + item.email}>{item.email}</a></td>
                                         <td className="px-4 py-4 break-words">{item.created_at}</td>
+                                        <td className="px-4 py-4 break-words">
+                                            <Link href={route('admin.users.detail', {id: item.id})}>Детальная страница</Link>
+                                        </td>
                                     </tr>
                                 ))}
                                 </tbody>

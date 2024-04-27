@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Restaurant extends Model
+class Restaurant extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $fillable = [
         'name',
@@ -31,5 +33,18 @@ class Restaurant extends Model
     public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
+    }
+
+    /**
+     * Функция поиска по имени и фамилии
+     * @param $query
+     * @param $term
+     * @return void
+     */
+    public function scopeSearch($query, $term): void
+    {
+        $term = '%' . $term . '%';
+
+        $query->where('name', 'like', $term);
     }
 }

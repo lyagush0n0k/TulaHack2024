@@ -3,13 +3,16 @@
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', [MainController::class, 'getMain'])->name('main');
 Route::get('/detail/{id}', [DetailController::class, 'getDetail'])->name('detail');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/uploads', [UploadController::class, 'upload']);
+    Route::post('/uploads/remove', [UploadController::class, 'remove']);
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

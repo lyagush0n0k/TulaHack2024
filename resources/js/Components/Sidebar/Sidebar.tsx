@@ -35,7 +35,7 @@ export default function Sidebar({ children, user }: PropsWithChildren<{ user: Us
             href={route('profile.edit')}
             >
             <img
-              className="rounded-md group transition-all w-[48px] h-[48px]"
+              className="rounded-full group transition-all w-[48px] h-[48px]"
               src={user.avatar}
               alt={user.name}
             />
