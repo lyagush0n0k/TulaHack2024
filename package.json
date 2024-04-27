@@ -29,6 +29,8 @@
         "html-react-parser": "^5.1.10",
         "less": "^4.2.0",
         "lucide-react": "^0.376.0",
+        "react-select": "^5.8.0",
+        "rsuite": "^5.60.0",
         "segoe-fonts": "^1.0.1"
     }
 }
