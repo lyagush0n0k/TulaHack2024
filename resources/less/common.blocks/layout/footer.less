@@ -18,6 +18,12 @@
         display: flex;
         gap: 30px;
         padding: 40px 0;
+        .mediaMobileBig({
+            gap: 0;
+            flex-wrap: wrap;
+            row-gap: 10px;
+            padding: 10px;
+        });
         &-item {
             color: #fff;
             font-family: @segoe;
@@ -26,6 +32,9 @@
             line-height: 24px;
             letter-spacing: 0.3px;
             text-align: center;
+            .mediaMobileBig({
+                flex: 0 0 50%;
+            });
         }
     }
 

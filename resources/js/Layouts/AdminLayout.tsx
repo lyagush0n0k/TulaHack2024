@@ -21,6 +21,12 @@ export default function AdminLayout({ user, header, children }: PropsWithChildre
                     text='Dashboard'
                     active={route().current('admin.index')}
                   />
+                  <SidebarItem
+                    href={route('admin.users.index')}
+                    icon={(<UsersIcon/>)}
+                    text='Пользователи'
+                    active={route().current('admin.users.index')}
+                  />
               </Sidebar>
               <div className="min-h-screen max-h-screen overflow-y-scroll flex-1 bg-gray-100">
                   <nav className="bg-white border-b border-gray-100">

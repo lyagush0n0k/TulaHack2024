@@ -11,6 +11,7 @@ class RestaurantScheduleItem extends Model
 
     protected $fillable = [
         'restaurant_id',
+        'day_of_week',
         'starts_at',
         'ends_at',
         'type'

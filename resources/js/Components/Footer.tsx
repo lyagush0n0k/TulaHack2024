@@ -13,19 +13,16 @@ class Footer extends React.Component<any, any> {
                         <nav className="footer__nav">
                             <ul className="nav__list">
                                 <li className="nav__list-item">
-                                    <Link href={''} className={'nav__list-item-link'}>Service</Link>
+                                    <Link href={''} className={'nav__list-item-link'}>О нас</Link>
                                 </li>
                                 <li className="nav__list-item">
-                                    <Link href={''} className={'nav__list-item-link'}>Service</Link>
+                                    <Link href={''} className={'nav__list-item-link'}>Связаться</Link>
                                 </li>
                                 <li className="nav__list-item">
-                                    <Link href={''} className={'nav__list-item-link'}>Service</Link>
+                                    <Link href={''} className={'nav__list-item-link'}>FAQ</Link>
                                 </li>
                                 <li className="nav__list-item">
-                                    <Link href={''} className={'nav__list-item-link'}>Service</Link>
-                                </li>
-                                <li className="nav__list-item">
-                                    <Link href={''} className={'nav__list-item-link'}>Service</Link>
+                                    <Link href={''} className={'nav__list-item-link'}>Войти</Link>
                                 </li>
                             </ul>
                         </nav>

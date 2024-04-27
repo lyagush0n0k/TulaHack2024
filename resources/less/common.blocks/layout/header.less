@@ -1,90 +1,117 @@
 .header {
-    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
-    background: rgb(255, 255, 255);
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
+  background: rgb(255, 255, 255);
 
-    &__row {
-        display: flex;
-        padding: 34px 0;
-    }
+  &__row {
+    display: flex;
+    padding: 10px 0;
+  }
 
-    &__nav {
-        .nav__list {
-            display: flex;
-            gap: 40px;
+  &__nav {
+    .mediaLaptopMini({
+      display: none;
+    });
 
-            &-item {
-                a {
-                    color: rgb(94, 94, 94);
-                    font-family: @segoe;
-                    font-size: 16px;
-                    font-weight: 700;
-                    line-height: 21px;
-                    text-align: left;
-                    transition: all .5s ease;
-                    padding: 10px 0;
+    .nav__list {
+      display: flex;
+      gap: 40px;
 
-                    &.active {
-                        border-bottom: 4px solid @linkHover;
-                        border-radius: 3px;
-                    }
-
-                    &:hover {
-                        color: @linkHover;
-                    }
-
-                }
-            }
-        }
-    }
-
-    &__user {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-
+      &-item {
         a {
+          color: rgb(94, 94, 94);
+          font-family: @segoe;
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 21px;
+          text-align: left;
+          transition: all .5s ease;
+          padding: 10px 0;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 30px;
-            width: 100%;
+          &.active {
+            border-bottom: 4px solid @linkHover;
+            border-radius: 3px;
+          }
 
-            .user {
-                &__name {
-                    font-size: 16px;
-                    font-family: @segoe;
-                    color: @disableGray;
+          &:hover {
+            color: @linkHover;
+          }
 
-                    span {
-                        font-weight: bold;
-                    }
-                }
-
-                &__photo {
-                    width: 50px;
-                    height: 50px;
-                    box-sizing: border-box;
-                    border-radius: 50px;
-                    border: 1px solid rgb(244, 155, 51);
-                    background-position: center;
-                    background-size: cover;
-                }
-            }
         }
+      }
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    a {
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+
+      .user {
+        &__name {
+          font-size: 16px;
+          font-family: @segoe;
+          color: @disableGray;
+
+          span {
+            font-weight: bold;
+          }
+        }
+
+        &__photo {
+          width: 50px;
+          height: 50px;
+          box-sizing: border-box;
+          border-radius: 50px;
+          border: 1px solid rgb(244, 155, 51);
+          background-position: center;
+          background-size: cover;
+        }
+      }
+    }
+  }
+
+  &__section {
+    &-menu, &-user {
+      display: flex;
+      align-items: center;
     }
 
-    &__section {
-        &-menu, &-user {
-            display: flex;
-            align-items: center;
-        }
-
-        &-menu {
-            justify-content: space-between;
-            padding-right: 60px;
-            border-right: 2px solid @linkHover;
-        }
+    &-menu {
+      justify-content: space-between;
+      padding-right: 60px;
+      border-right: 2px solid @linkHover;
+      .mediaLaptopMini({
+        padding-right: 10px;
+        gap: 15px;
+      });
     }
+  }
+
+  .burger__menu {
+    .menu {
+      &__header {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+      }
+    }
+
+    &-btn {
+        margin-top: 10px;
+        padding: 5px 10px;
+        font-style: @segoe;
+        background-color: @linkHover;
+        border-radius: 10px;
+        color: #fff;
+    }
+  }
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [MainController::class, 'getMain'])->name('main');
-Route::get('/detail', [DetailController::class, 'getDetail'])->name('detail');
+Route::get('/detail/{id}', [DetailController::class, 'getDetail'])->name('detail');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
