@@ -33,7 +33,7 @@ class RestaurantScheduleItemSeeder extends Seeder
 
     private function generateRandomTime()
     {
-        return sprintf('%02d:%02d:%02d', rand(0, 23), rand(0, 59), rand(0, 59));
+        return sprintf('%02d:%02d', rand(0, 23), rand(0, 59));
     }
 
     private function generateRandomTimeAfter($time)
@@ -42,9 +42,8 @@ class RestaurantScheduleItemSeeder extends Seeder
 
         $newHours = rand($hours, 23);
         $newMinutes = ($newHours == $hours) ? rand($minutes, 59) : rand(0, 59);
-        $newSeconds = ($newHours == $hours && $newMinutes == $minutes) ? rand($seconds, 59) : rand(0, 59);
 
-        return sprintf('%02d:%02d:%02d', $newHours, $newMinutes, $newSeconds);
+        return sprintf('%02d:%02d', $newHours, $newMinutes);
     }
 
     private function generateRandomType()

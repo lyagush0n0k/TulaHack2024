@@ -1,6 +1,6 @@
-import React from "react";
-import MainLayout from "@/Layouts/MainLayout";
-import {Link} from "@inertiajs/react";
+import React from 'react';
+import MainLayout from '@/Layouts/MainLayout';
+import {Link} from '@inertiajs/react';
 // @ts-ignore
 import Arrow from '../../../public/img/left-arrow.svg?react';
 // @ts-ignore
@@ -15,8 +15,8 @@ import Calendar from '../../../public/img/calendar.svg?react';
 import People from '../../../public/img/people.svg?react';
 import '../../less/common.blocks/detail/detail.less';
 import Select from 'react-select';
-import {DatePicker} from "rsuite";
-import "rsuite/dist/rsuite.css";
+import {DatePicker} from 'rsuite';
+import 'rsuite/dist/rsuite.css';
 
 export default class Detail extends React.Component {
     render() {
@@ -61,6 +61,8 @@ export default class Detail extends React.Component {
             {value: '10', label: '10'},
         ];
 
+        const {restaurant} = this.props;
+
         return (
             <>
                 <MainLayout>
@@ -86,7 +88,7 @@ export default class Detail extends React.Component {
 
                                     <div className={'detail__container detail--border-bottom'}>
                                         <div className={'detail__name-block detail--border-bottom'}>
-                                            <p className={'detail__name'}>Villagio Restaurant & Bar</p>
+                                            <p className={'detail__name'}>{restaurant.name}</p>
                                         </div>
                                         <div className={'detail__description'}>
                                             <div className={'detail__description-left'}>
@@ -95,7 +97,7 @@ export default class Detail extends React.Component {
                                                         <Map/>
                                                     </div>
                                                     <span className={'detail__description-text'}>
-                                                    360 San Lorenzo Avenue, Suite 1430 Coral Gables, FL 33146-1865 |
+                                                    {restaurant.address}
                                                 </span>
                                                 </div>
                                                 <div className={'detail__description-block'}>
@@ -103,24 +105,18 @@ export default class Detail extends React.Component {
                                                         <Clock/>
                                                     </div>
                                                     <span className={'detail__description-text'}>
-                                                        10:30 AM - 11:00 PM
+                                                        time - time
                                                     </span>
                                                 </div>
                                             </div>
                                             <div className={'detail__description-right'}>
                                                 <div className={'detail__description-block detail__description-block' +
-                                                    '--baseline'}>
+                                                '--baseline'}>
                                                     <div className={'detail__logo'}>
                                                         <Burger/>
                                                     </div>
                                                     <span className={'detail__description-text'}>
-                                                        Villagio restaurant and bar has one mission: to provide guests
-                                                        with a fine and fresh seafood experience. Featuring seasonal
-                                                        and sustainable seafood that is flown in fresh daily, our
-                                                        chef-driven menu proves that no matter when you’re dining,
-                                                        seafood can be truly exceptional. to provide guests with a fine
-                                                        and fresh seafood experience. Featuring seasonal and to provide
-                                                        guests with a fine and fresh Read More...
+                                                        {restaurant.info}
                                                     </span>
                                                 </div>
                                             </div>
@@ -128,7 +124,7 @@ export default class Detail extends React.Component {
                                     </div>
 
                                     <div className={'detail__container detail__container-order'}>
-                                        <p className={'detail__order-client'}>John Doe</p>
+                                        <p className={'detail__order-client'}>John Deez Nuts</p>
                                         <div className={'detail__order'}>
                                             <div className={'detail__order-block'}>
                                                 <Calendar/>
@@ -175,7 +171,7 @@ export default class Detail extends React.Component {
                                                             className={'detail__select-time'}/>
                                                 </div>
                                                 <button className={'detail__button-submit' +
-                                                    ' detail__button-submit--booking'} type={'submit'}>
+                                                ' detail__button-submit--booking'} type={'submit'}>
                                                     Забронировать
                                                 </button>
                                             </form>

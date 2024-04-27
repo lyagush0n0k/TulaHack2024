@@ -20,7 +20,7 @@ class DetailController extends Controller
         $todaySchedule = RestaurantScheduleItem::where('restaurant_id', $id)->where('day_of_week', $currentDayOfWeek)->first();
         $schedule = ['startsAt' => $todaySchedule->starts_at,
             'ends_at' => $todaySchedule->ends_at];
-        dump($schedule);
+        //dump($schedule);
         return Inertia::render('Detail', ['restaurant' => $restaurant, 'schedule' => $schedule]);
     }
 }
