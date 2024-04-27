@@ -15,7 +15,7 @@ class MainController extends Controller
      */
     public function getMain(): Response
     {
-        $currentDayOfWeek = Carbon::now()->format('l');
+        $currentDayOfWeek = strtolower(date('l'));
 
         $restaurants = Restaurant::with([
             'schedule' => function ($query) use ($currentDayOfWeek) {

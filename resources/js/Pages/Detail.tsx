@@ -17,7 +17,7 @@ import '../../less/common.blocks/detail/detail.less';
 import Select from 'react-select';
 import {DatePicker} from 'rsuite';
 import 'rsuite/dist/rsuite.css';
-import { Fancybox } from '@fancyapps/ui';
+import {Fancybox} from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/less';
@@ -38,6 +38,7 @@ Fancybox.bind('[data-fancybox="Single image"]', options);
 
 export default class Detail extends React.Component {
     render() {
+
         const timeOptions = [
             {value: '1', label: '1'},
             {value: '2', label: '2'},
@@ -79,7 +80,9 @@ export default class Detail extends React.Component {
             {value: '10', label: '10'},
         ];
 
-        const {restaurant} = this.props;
+        const {restaurant, schedule, bookings} = this.props;
+
+        console.log(schedule);
 
         return (
             <>
@@ -144,7 +147,7 @@ export default class Detail extends React.Component {
                                                         <Clock/>
                                                     </div>
                                                     <span className={'detail__description-text'}>
-                                                        time - time
+                                                        {schedule.starts_at} - {schedule.ends_at}
                                                     </span>
                                                 </div>
                                             </div>
@@ -162,20 +165,28 @@ export default class Detail extends React.Component {
                                         </div>
                                     </div>
 
-                                    <div className={'detail__container detail__container-order'}>
-                                        <p className={'detail__order-client'}>John Deez Nuts</p>
-                                        <div className={'detail__order'}>
-                                            <div className={'detail__order-block'}>
-                                                <Calendar/>
-                                                <p>30 November 2022 | 09:30 PM</p>
+                                    {bookings.map((item, index) => (
+                                        <div className={'detail__container detail__container-order'}>
+                                            <div className={'detail__order'}>
+                                                <div className={'detail__order-block'}>
+                                                    <Calendar/>
+                                                    <p>{new Date(item.starts_at).toLocaleString(undefined, {
+                                                        year: 'numeric',
+                                                        month: 'long',
+                                                        day: '2-digit',
+                                                    })} | {new Date(item.starts_at).toLocaleString(undefined, {
+                                                        hour: '2-digit',
+                                                        minute: '2-digit'
+                                                    })}</p>
+                                                </div>
+                                                <div className={'detail__order-block'}>
+                                                    <People/>
+                                                    <p>{item.guest_count} Guests</p>
+                                                </div>
                                             </div>
-                                            <div className={'detail__order-block'}>
-                                                <People/>
-                                                <p>4 Guests</p>
-                                            </div>
+                                            <button className={'detail__cansel'}>Cancel Booking</button>
                                         </div>
-                                        <button className={'detail__cansel'}>Cancel Booking</button>
-                                    </div>
+                                    ))}
 
                                     <div className={'detail__container'}>
                                         <form action="" className={'detail__order-send'}>
@@ -216,7 +227,8 @@ export default class Detail extends React.Component {
                                             </form>
                                         </div>
                                         <div className={'detail__booking-right'}>
-                                            <a data-fancybox="Single image" href="https://media.maximilians.ru/chelny/page/contacts/plan-chelny-min.jpg">
+                                            <a data-fancybox="Single image"
+                                               href="https://media.maximilians.ru/chelny/page/contacts/plan-chelny-min.jpg">
                                                 <img
                                                     src="https://media.maximilians.ru/chelny/page/contacts/plan-chelny-min.jpg"
                                                     alt=""/>

@@ -38,7 +38,7 @@ class RestaurantScheduleItemSeeder extends Seeder
 
     private function generateRandomTimeAfter($time)
     {
-        list($hours, $minutes, $seconds) = explode(':', $time);
+        list($hours, $minutes) = explode(':', $time);
 
         $newHours = rand($hours, 23);
         $newMinutes = ($newHours == $hours) ? rand($minutes, 59) : rand(0, 59);
@@ -48,6 +48,6 @@ class RestaurantScheduleItemSeeder extends Seeder
 
     private function generateRandomType()
     {
-        return rand(0, 1) == 0 ? 'workday' : 'break';
+        return 'workday';
     }
 }
