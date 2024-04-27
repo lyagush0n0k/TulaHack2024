@@ -44,17 +44,40 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
+            'created_at'        => 'datetime:d.m.Y H:i:s',
             'password'          => 'hashed',
         ];
     }
 
-    public function avatar()
+    protected $appends = [
+        'avatar',
+    ];
+
+    public function avatar(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\Models\UserAvatar');
     }
 
-    public function canAccessPanel()
+    public function canAccessPanel(): bool
     {
         return $this->hasPermissionTo('access-panel');
+    }
+
+    public function getAvatarAttribute(): string
+    {
+        return $this->avatar()->first()->path;
+    }
+
+    /**
+     * Функция поиска по имени и фамилии
+     * @param $query
+     * @param $term
+     * @return void
+     */
+    public function scopeSearch($query, $term): void
+    {
+        $term = '%' . $term . '%';
+
+        $query->where('name', 'like', $term);
     }
 }
