@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\RestaurantsController;
 use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,5 @@ Route::middleware(['auth', 'can:access-panel'])->prefix('/admin')->group(functio
         Route::post('/destroy', [RestaurantsController::class, 'destroy'])->name('admin.restaurants.destroy');
     });
 
+    Route::get('/bookings', [BookingController::class, 'index'])->name('admin.booking.index');
 });
