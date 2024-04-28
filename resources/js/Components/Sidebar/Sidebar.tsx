@@ -32,7 +32,7 @@ export default function Sidebar({ children, user }: PropsWithChildren<{ user: Us
         <div className="px-3">
           <Link
             className="flex items-center relative py-2 my-1 font-medium rounded-md cursor-pointer"
-            href={route('profile.edit')}
+            href={route('profile.index')}
             >
             <img
               className="rounded-full group transition-all w-[48px] h-[48px]"

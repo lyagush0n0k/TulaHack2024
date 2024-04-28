@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Booking;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +14,14 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
+
+    public function index(Request $request): Response
+    {
+        $user = $request->user();
+        $bookings = Booking::where('user_id', '=', $user->id)->with('restaurant')->paginate(10);
+
+        return Inertia::render('User/Profile', ['bookings' => $bookings]);
+    }
     /**
      * Display the user's profile form.
      */
@@ -37,7 +46,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.index');
     }
 
     /**

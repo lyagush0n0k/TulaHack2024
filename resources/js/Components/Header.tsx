@@ -125,7 +125,7 @@ export default function Header({ auth }: { auth: any }) {
             {auth.user &&
                 <div className={'header__section-user container__sections-right'}>
                     <div className={'header__user'}>
-                        <Link href={route('profile.edit')}>
+                        <Link href={route('profile.index')}>
                             <div className={'user__name'}>
                               {auth.user.name}
                             </div>

@@ -2,4 +2,24 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 50px;
+
+  &__booking-item {
+    border-bottom: 1px solid @linkHover;
+    padding-bottom: 20px;
+    font-family: @segoe;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  &__booking-title {
+
+  }
+
+  &__booking-image {
+    height: 114px;
+    width: 160px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
 }

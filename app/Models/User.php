@@ -68,6 +68,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->avatar()->first()->path;
     }
 
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
     /**
      * Функция поиска по имени и фамилии
      * @param $query
