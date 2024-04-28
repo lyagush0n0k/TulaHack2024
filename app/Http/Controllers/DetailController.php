@@ -92,8 +92,6 @@ class DetailController extends Controller
         $request->validate([
             'booking_id' => 'required',
         ]);
-
-
     }
 
 
