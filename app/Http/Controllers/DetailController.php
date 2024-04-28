@@ -93,6 +93,9 @@ class DetailController extends Controller
         $request->validate([
             'booking_id' => 'required',
         ]);
+        Booking::find($request->get('booking_id'))->delete();
+
+        return 200;
     }
 
 

@@ -60,6 +60,7 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                 console.error('Error fetching CSRF token:', error);
             }
         }
+
         fetchCsrfToken();
     }, []);
 
@@ -117,10 +118,9 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
             user_id: auth.user.id
         }), {
             method: 'POST',
-            headers:{
+            headers: {
                 'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
             }
-            // TODO: add CRSF token (disabled for now)
         })
 
         let responseData = await response.json();
@@ -128,6 +128,23 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
 
         window.location.reload();
     };
+
+    const cancelBooking = async (e, bookingId) => {
+        e.preventDefault();
+        const response = await fetch(route('booking.delete', {
+            booking_id: bookingId
+        }), {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+            }
+        })
+
+        let responseData = await response.json();
+        console.log(responseData);
+
+        window.location.reload();
+    }
 
     const fetchAvailableTables = async (e) => {
         e.preventDefault();
@@ -265,7 +282,8 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                                 <p>Гостей: {item.guest_count}</p>
                                             </div>
                                         </div>
-                                        <button className={'detail__cansel'}>Cancel Booking</button>
+                                        <button className={'detail__cansel'} onClick={(e) => cancelBooking(e, item.id)}>Cancel Booking
+                                        </button>
                                     </div>
                                 ))}
 
