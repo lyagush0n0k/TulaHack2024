@@ -99,7 +99,7 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
 
         const response = await fetch(route('booking.getAvailableTables', {
             date: formData.date,
-            starting_time: formData.time.value,
+            time: formData.time,
             duration: formData.duration.value,
             guest_count: formData.guests.value
         }), {
@@ -142,11 +142,11 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                         }}
                                     >
                                         {media.map((item: string, index: number) => (
-                                          <SwiperSlide key={index}>
-                                              <img className={'detail__image'}
-                                                   src={item}
-                                                   alt=""/>
-                                          </SwiperSlide>
+                                            <SwiperSlide key={index}>
+                                                <img className={'detail__image'}
+                                                     src={item}
+                                                     alt=""/>
+                                            </SwiperSlide>
                                         ))}
                                     </Swiper>
                                 </div>
@@ -225,8 +225,13 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                         </div>
                                         <div className={'detail__input'}>
                                             <p>Время бронирования:</p>
-                                            <Select placeholder={''} options={timeOptions} value={formData.time}
-                                                    onChange={value => setFormData({...formData, time: value})}/>
+                                            <CustomProvider locale={ruRU}>
+                                                <DatePicker format="HH:mm"
+                                                            onChange={value => setFormData({
+                                                                ...formData,
+                                                                time: value
+                                                            })}/>
+                                            </CustomProvider>
                                         </div>
                                         <div className={'detail__input'}>
                                             <p>Длительность бронирования:</p>

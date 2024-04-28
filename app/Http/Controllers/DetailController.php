@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Restaurant;
 use App\Models\RestaurantScheduleItem;
+use App\Models\Table;
 use DateInterval;
 use DateTime;
 use Illuminate\Http\Request;
@@ -21,19 +22,20 @@ class DetailController extends Controller
     {
         $request->validate([
             'date' => 'required',
-            'starting_time' => 'required',
+            'time' => 'required',
             'duration' => 'required',
             'guest_count' => 'required'
         ]);
 
-        $start_time = new DateTime($request->get('starting_time'));
-        $end_time = new DateTime($request->get('starting_time')->add(new DateInterval('PT'.$request.get('duration').'H')));
+        $date_only = substr($request->get('date'), 0, 10); // Extract YYYY-MM-DD part
+        $time_only = substr($request->get('time'), 10, 6); // Extract HH:mm:ss with timezone
+        $combined_datetime = $date_only . $time_only . 'Z';
 
-        error_log($start_time);
-        error_log($end_time);
+        $start_time = strtotime($combined_datetime) * 1000;
+        $end_time = (strtotime($combined_datetime) + 3600 * $request->get('duration')) * 1000;
 
-        $available_tables = DB::table('tables')
-            ->select('tables.id', 'tables.number')
+        $available_tables = Table::select('tables.*')
+            ->where('tables.restaurant_id', 1)
             ->leftJoin('bookings', function ($join) use ($start_time, $end_time) {
                 $join->on('tables.id', '=', 'bookings.table_id')
                     ->where(function ($query) use ($start_time, $end_time) {
@@ -43,8 +45,6 @@ class DetailController extends Controller
             })
             ->whereNull('bookings.id')
             ->get();
-
-        error_log($available_tables);
 
         return $available_tables;
     }
@@ -63,7 +63,7 @@ class DetailController extends Controller
 
         $schedule = [
             'starts_at' => null,
-            'ends_at'   => null,
+            'ends_at' => null,
         ];
 
         if ($todaySchedule) {
@@ -87,9 +87,9 @@ class DetailController extends Controller
             'Detail',
             [
                 'restaurant' => $restaurant,
-                'schedule'   => $schedule,
-                'bookings'   => $bookings,
-                'media'      => $media,
+                'schedule' => $schedule,
+                'bookings' => $bookings,
+                'media' => $media,
             ]
         );
     }
