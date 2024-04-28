@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Restaurant;
 use App\Models\RestaurantScheduleItem;
+use DateInterval;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -22,8 +25,11 @@ class DetailController extends Controller
             'guest_count' => 'required'
         ]);
 
-        $start_time = '2024-04-28 10:00:00'; // Начальное время выбранного интервала
-        $end_time = '2024-04-28 12:00:00'; // Конечное время выбранного интервала
+        $start_time = new DateTime($request->get('starting_time'));
+        $end_time = new DateTime($request->get('starting_time')->add(new DateInterval('PT'.$request.get('duration').'H')));
+
+        error_log($start_time);
+        error_log($end_time);
 
         $available_tables = DB::table('tables')
             ->select('tables.id', 'tables.number')
@@ -36,6 +42,8 @@ class DetailController extends Controller
             })
             ->whereNull('bookings.id')
             ->get();
+
+        error_log($available_tables);
 
         return $available_tables;
     }
