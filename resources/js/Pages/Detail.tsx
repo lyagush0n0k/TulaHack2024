@@ -108,6 +108,13 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
 
         let responseData = await response.json();
         console.log(responseData);
+
+        if (!responseData.length) {
+            document.querySelector('.detail__container--error').style.display = 'block';
+            return;
+        }
+
+        document.querySelector('.detail__container--booking').style.display = 'flex';
     };
 
     return (
@@ -243,17 +250,20 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                             <Select placeholder={''} options={peopleOptions} value={formData.guests}
                                                     onChange={value => setFormData({...formData, guests: value})}/>
                                         </div>
-                                        <PrimaryButton className={'detail__button-submit'}
-                                                       onClick={fetchAvailableTables}>
-                                            Найти
-                                        </PrimaryButton>
+                                        <div className={'detail__input'}>
+                                            <PrimaryButton className={'detail__button-submit'}
+                                                           onClick={fetchAvailableTables}>
+                                                Найти
+                                            </PrimaryButton>
+                                        </div>
+
                                     </form>
                                 </div>
                                 <div className={'detail__container detail__container--error'}>
                                     <p>По данному времени свободных столиков нет</p>
                                 </div>
                                 <div className={'detail__container detail__container--booking'}>
-                                    <div className={'detail__booking-left'}>
+                                <div className={'detail__booking-left'}>
                                         <form className={'detail__form-order-submit'} action="">
                                             <div className={'detail__input'}>
                                                 <p>Номер столика:</p>
@@ -261,7 +271,7 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                                         className={'detail__select-time'}/>
                                             </div>
                                             <button className={'detail__button-submit' +
-                                            ' detail__button-submit--booking'} type={'submit'}>
+                                                ' detail__button-submit--booking'} type={'submit'}>
                                                 Забронировать
                                             </button>
                                         </form>
