@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import MainLayout from '@/Layouts/MainLayout';
 import {Link} from '@inertiajs/react';
 // @ts-ignore
+import Table from '../../../public/img/table-icon.svg?react';
+// @ts-ignore
 import Arrow from '../../../public/img/left-arrow.svg?react';
 // @ts-ignore
 import Map from '../../../public/img/map-icon.svg?react';
@@ -106,7 +108,6 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
 
     const orderSend = async (e) => {
         e.preventDefault();
-
         const response = await fetch(route('booking.store', {
             restaurant_id: restaurant.id,
             date: formData.date,
@@ -126,12 +127,7 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
         let responseData = await response.json();
         console.log(responseData);
 
-        if (!responseData.length) {
-            document.querySelector('.detail__container--error').style.display = 'block';
-            return;
-        }
-
-        document.querySelector('.detail__container--booking').style.display = 'flex';
+        window.location.reload();
     };
 
     const fetchAvailableTables = async (e) => {
@@ -256,7 +252,14 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                                 })} | {new Date(item.starts_at).toLocaleString(undefined, {
                                                     hour: '2-digit',
                                                     minute: '2-digit'
+                                                })} - {new Date(item.ends_at).toLocaleString(undefined, {
+                                                    hour: '2-digit',
+                                                    minute: '2-digit'
                                                 })}</p>
+                                            </div>
+                                            <div className={'detail__order-block'}>
+                                                <Table/>
+                                                <p>Стол: {item.table_id}</p>
                                             </div>
                                             <div className={'detail__order-block'}>
                                                 <People/>

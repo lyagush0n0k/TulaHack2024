@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RestaurantSeeder::class,
             RestaurantScheduleItemSeeder::class,
-            BookingsSeeder::class
+            //BookingsSeeder::class
         ]);
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -84,16 +85,14 @@ class DetailController extends Controller
             'status' => 'waiting',
         ]);
         $booking->save();
-
         return 200;
     }
 
-    public function removeBooking(Request $request){
+    public function removeBooking(Request $request)
+    {
         $request->validate([
             'booking_id' => 'required',
         ]);
-
-
     }
 
 
