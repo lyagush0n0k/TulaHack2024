@@ -53,6 +53,10 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
         guests: ''
     });
 
+    const [formDataSend, setFormDataSend] = useState({
+        table: '',
+    });
+
     const timeOptions = [
         {value: '1', label: '1'},
         {value: '2', label: '2'},
@@ -82,6 +86,35 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
     ];
 
     var tableOptions = [];
+
+    const orderSend = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch(route('booking.store', {
+            restaurant_id: restaurant.id,
+            date: formData.date,
+            time: formData.time,
+            duration: formData.duration.value,
+            guest_count: formData.guests.value,
+            table_id: formDataSend.table.value,
+        }), {
+            method: 'POST'
+        })
+
+        let responseData = await response.json();
+        console.log(responseData);
+
+        if (!responseData.length) {
+            document.querySelector('.detail__container--error').style.display = 'block';
+            return;
+        }
+
+        document.querySelector('.detail__container--booking').style.display = 'flex';
+
+        responseData.forEach((element) => {
+            tableOptions.push({value: element.id, label: element.number});
+        });
+    };
 
     const fetchAvailableTables = async (e) => {
         e.preventDefault();
@@ -261,11 +294,14 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                         <form className={'detail__form-order-submit'} action="">
                                             <div className={'detail__input'}>
                                                 <p>Номер столика:</p>
-                                                <Select placeholder={''} options={tableOptions}
+                                                <Select placeholder={''} options={tableOptions} onChange={value => setFormDataSend({
+                                                    ...formDataSend,
+                                                    table: value
+                                                })}
                                                         className={'detail__select-time'}/>
                                             </div>
                                             <button className={'detail__button-submit' +
-                                                ' detail__button-submit--booking'} type={'submit'}>
+                                                ' detail__button-submit--booking'} type={'submit'} onClick={orderSend}>
                                                 Забронировать
                                             </button>
                                         </form>
