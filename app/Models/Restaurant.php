@@ -20,6 +20,10 @@ class Restaurant extends Model implements HasMedia
         'info'
     ];
 
+    protected $appends = [
+        'primary_image_url',
+    ];
+
     public function schedule(): HasMany
     {
         return $this->hasMany(RestaurantScheduleItem::class);
@@ -46,5 +50,13 @@ class Restaurant extends Model implements HasMedia
         $term = '%' . $term . '%';
 
         $query->where('name', 'like', $term);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrimaryImageUrlAttribute(): string
+    {
+        return (empty($this->getMedia('photos')[0])) ? '' : $this->getMedia('photos')[0]->getFullUrl();
     }
 }

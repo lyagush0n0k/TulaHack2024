@@ -1,4 +1,3 @@
-import React, {useState} from 'react';
 import MainLayout from '@/Layouts/MainLayout';
 import {Link} from '@inertiajs/react';
 import RightBlock from '@/Components/RightBlock';
@@ -19,7 +18,7 @@ export default function Main({auth, restaurants}: PageProps & { restaurants: any
                                         {restaurants && restaurants.map((item, index) => (
                                             <Link href={route('detail', {id: item.id})}
                                                   className={'restaurant-items__item'}>
-                                                <img src={'/img/resturant.png'} alt={'Логотип ресторана'}
+                                                <img src={item.primary_image_url} alt={'Логотип ресторана'}
                                                      className={'restaurant-items__item-image'}/>
                                                 <h3 className={'restaurant-items__item-name'}>{item.name}</h3>
                                                 <p className={'restaurant-items__item-address'}>{item.address}</p>

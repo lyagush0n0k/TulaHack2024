@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class DetailController extends Controller
 {
@@ -54,7 +55,7 @@ class DetailController extends Controller
 
         $schedule = [
             'starts_at' => null,
-            'ends_at' => null
+            'ends_at'   => null,
         ];
 
         if ($todaySchedule) {
@@ -62,10 +63,26 @@ class DetailController extends Controller
             $schedule['ends_at'] = $todaySchedule->ends_at;
         }
 
+        $mediaRaw = $restaurant->getMedia('photos');
+        $media = [];
+
+        /** @var Media $mediaItem * */
+        foreach ($mediaRaw as $mediaItem) {
+            $media[] = $mediaItem->getFullUrl();
+        }
+
         $bookings = Booking::where('user_id', auth()->check() ? auth()->user()->id : null)
             ->where('restaurant_id', $id)
             ->get();
 
-        return Inertia::render('Detail', ['restaurant' => $restaurant, 'schedule' => $schedule, 'bookings' => $bookings]);
+        return Inertia::render(
+            'Detail',
+            [
+                'restaurant' => $restaurant,
+                'schedule'   => $schedule,
+                'bookings'   => $bookings,
+                'media'      => $media,
+            ]
+        );
     }
 }
