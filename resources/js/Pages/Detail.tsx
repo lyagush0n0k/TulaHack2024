@@ -107,7 +107,6 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
 
     const orderSend = async (e) => {
         e.preventDefault();
-
         const response = await fetch(route('booking.store', {
             restaurant_id: restaurant.id,
             date: formData.date,
@@ -127,12 +126,7 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
         let responseData = await response.json();
         console.log(responseData);
 
-        if (!responseData.length) {
-            document.querySelector('.detail__container--error').style.display = 'block';
-            return;
-        }
-
-        document.querySelector('.detail__container--booking').style.display = 'flex';
+        window.location.reload();
     };
 
     const fetchAvailableTables = async (e) => {
