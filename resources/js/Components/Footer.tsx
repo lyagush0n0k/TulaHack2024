@@ -7,7 +7,7 @@ class Footer extends React.Component<any, any> {
             <footer className={'footer'}>
                 <div className="container">
                     <div className="footer__row">
-                        <div className="footer__logo"><img src="/img/FooterLogo.svg" alt=""/></div>
+                        <div className="footer__logo"><img src="/img/logo.svg" alt=""/></div>
                     </div>
                     <div className="footer__row">
                         <nav className="footer__nav">
