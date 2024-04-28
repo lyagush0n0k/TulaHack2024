@@ -21,6 +21,7 @@ class DetailController extends Controller
     public function getAvailableTables(Request $request)
     {
         $request->validate([
+            'restaurant_id' => 'required',
             'date' => 'required',
             'time' => 'required',
             'duration' => 'required',
@@ -35,7 +36,7 @@ class DetailController extends Controller
         $end_time = (strtotime($combined_datetime) + 3600 * $request->get('duration')) * 1000;
 
         $available_tables = Table::select('tables.*')
-            ->where('tables.restaurant_id', 3)
+            ->where('tables.restaurant_id', $request->get('restaurant_id'))
             ->leftJoin('bookings', function ($join) use ($start_time, $end_time) {
                 $join->on('tables.id', '=', 'bookings.table_id')
                     ->where(function ($query) use ($start_time, $end_time) {

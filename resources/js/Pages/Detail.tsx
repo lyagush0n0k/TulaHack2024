@@ -98,6 +98,7 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
         e.preventDefault();
 
         const response = await fetch(route('booking.getAvailableTables', {
+            restaurant_id: restaurant.id,
             date: formData.date,
             time: formData.time,
             duration: formData.duration.value,
