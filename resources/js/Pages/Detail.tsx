@@ -131,12 +131,6 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
         }
 
         document.querySelector('.detail__container--booking').style.display = 'flex';
-
-        tableOptions = [];
-
-        responseData.forEach((element) => {
-            tableOptions.push({value: element.id, label: element.number});
-        });
     };
 
     const fetchAvailableTables = async (e) => {
@@ -161,6 +155,10 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
         }
 
         document.querySelector('.detail__container--booking').style.display = 'flex';
+
+        if (tableOptions.length !== 0) {
+            tableOptions = [];
+        }
 
         responseData.forEach((element) => {
             tableOptions.push({value: element.id, label: element.number});
