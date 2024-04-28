@@ -25,3 +25,16 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         permissions: string[]
     };
 };
+
+export interface Booking {
+    id: number;
+    restaurant_id: number;
+    table_id: number;
+    user_id: number;
+    guest_count: number;
+    starts_at: string;
+    ends_at: string;
+    status: 'waiting' | 'accepted' | 'cancelled';
+    created_at: string;
+    updated_at: string;
+}

@@ -5,7 +5,7 @@ import { Link } from '@inertiajs/react';
 import { User } from '@/types';
 import Sidebar from '@/Components/Sidebar/Sidebar';
 import SidebarItem from '@/Components/Sidebar/SidebarItem';
-import { HomeIcon, LayoutDashboardIcon, UsersIcon } from 'lucide-react';
+import {HomeIcon, LayoutDashboardIcon, LayoutGrid, UsersIcon} from 'lucide-react';
 import SidebarContextProvider from '@/contexts/SidebarContext';
 
 export default function AdminLayout({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
@@ -32,6 +32,12 @@ export default function AdminLayout({ user, header, children }: PropsWithChildre
             icon={(<HomeIcon/>)}
             text="Рестораны"
             active={route().current('admin.restaurants.*')}
+          />
+          <SidebarItem
+              href={route('admin.restaurants.index')}
+              icon={(<LayoutGrid />)}
+              text="Забронированные"
+              active={route().current('admin.booking.index')}
           />
         </Sidebar>
         <div className="min-h-screen max-h-screen overflow-y-scroll flex-1 bg-gray-100">

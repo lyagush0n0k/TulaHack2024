@@ -25,4 +25,14 @@ class Booking extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function restaurant(): BelongsTo
+    {
+        return $this->belongsTo(Restaurant::class, 'restaurant_id');
+    }
+    public function table(): BelongsTo
+    {
+        return $this->belongsTo(Table::class, 'table_id');
+    }
+
 }

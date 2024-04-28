@@ -23,7 +23,12 @@ export default function Main({auth, restaurants}: PageProps & { restaurants: any
                                                      className={'restaurant-items__item-image'}/>
                                                 <h3 className={'restaurant-items__item-name'}>{item.name}</h3>
                                                 <p className={'restaurant-items__item-address'}>{item.address}</p>
-                                                <p className={'restaurant-items__item-hours'}>{item.schedule[0].starts_at} - {item.schedule[0].ends_at}</p>
+                                                {item.schedule[0] && (
+                                                    <p className={'restaurant-items__item-hours'}>
+                                                        {item.schedule[0].starts_at ? item.schedule[0].starts_at : ''} -
+                                                        {item.schedule[0].ends_at ? item.schedule[0].ends_at : ''}
+                                                    </p>
+                                                )}
                                             </Link>
                                         ))}
                                     </div>

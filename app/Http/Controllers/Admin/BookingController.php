@@ -9,10 +9,13 @@ use Inertia\Inertia;
 
 class BookingController extends Controller
 {
-    public function index(){
-        $booking = Booking::all();
-        dd($booking);
-        return Inertia::render('Admin/Users/Users', ['users' => $booking]);
-
+    public function index()
+    {
+        $bookings = Booking::with(['restaurant', 'table', 'user'])
+            ->join('tables', 'bookings.table_id', '=', 'tables.id')
+            ->orderBy('tables.number')
+            ->get();
+ //       dd()
+        return Inertia::render('Admin/Booking/Booking', ['booking' => $bookings]);
     }
 }
