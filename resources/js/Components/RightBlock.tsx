@@ -13,11 +13,15 @@ export default function RightBlock() {
                     <h2>Доступные места</h2>
                     <div className="address">
                         <Location/>
-                        <span>Адрес 1</span>
+                        <span>г. Тула, ул. Советская, 11</span>
                     </div>
                     <div className="address">
                         <Location/>
-                        <span>Адрес 2</span>
+                        <span>г. Тула, проспект Ленина, 85, к. 1, вход 5</span>
+                    </div>
+                    <div className="address">
+                        <Location/>
+                        <span>г. Тула, ул. Октябрьская, 1</span>
                     </div>
                 </div>
             </div>
