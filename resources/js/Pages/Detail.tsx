@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import MainLayout from '@/Layouts/MainLayout';
 import {Link} from '@inertiajs/react';
 // @ts-ignore
+import Table from '../../../public/img/table-icon.svg?react';
+// @ts-ignore
 import Arrow from '../../../public/img/left-arrow.svg?react';
 // @ts-ignore
 import Map from '../../../public/img/map-icon.svg?react';
@@ -26,6 +28,7 @@ import {Autoplay, Pagination} from 'swiper/modules';
 import {PageProps} from '@/types';
 import PrimaryButton from '../Components/PrimaryButton';
 import {ruRU} from 'rsuite/locales';
+import RightBlock from "@/Components/RightBlock";
 
 const options = {
     Toolbar: {
@@ -58,6 +61,7 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                 console.error('Error fetching CSRF token:', error);
             }
         }
+
         fetchCsrfToken();
     }, []);
 
@@ -105,7 +109,6 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
 
     const orderSend = async (e) => {
         e.preventDefault();
-
         const response = await fetch(route('booking.store', {
             restaurant_id: restaurant.id,
             date: formData.date,
@@ -116,26 +119,33 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
             user_id: auth.user.id
         }), {
             method: 'POST',
-            headers:{
+            headers: {
                 'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
             }
-            // TODO: add CRSF token (disabled for now)
         })
 
         let responseData = await response.json();
         console.log(responseData);
 
-        if (!responseData.length) {
-            document.querySelector('.detail__container--error').style.display = 'block';
-            return;
-        }
-
-        document.querySelector('.detail__container--booking').style.display = 'flex';
-
-        responseData.forEach((element) => {
-            tableOptions.push({value: element.id, label: element.number});
-        });
+        window.location.reload();
     };
+
+    const cancelBooking = async (e, bookingId) => {
+        e.preventDefault();
+        const response = await fetch(route('booking.delete', {
+            booking_id: bookingId
+        }), {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+            }
+        })
+
+        let responseData = await response.json();
+        console.log(responseData);
+
+        window.location.reload();
+    }
 
     const fetchAvailableTables = async (e) => {
         e.preventDefault();
@@ -159,6 +169,10 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
         }
 
         document.querySelector('.detail__container--booking').style.display = 'flex';
+
+        if (tableOptions.length !== 0) {
+            tableOptions = [];
+        }
 
         responseData.forEach((element) => {
             tableOptions.push({value: element.id, label: element.number});
@@ -255,14 +269,22 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                                 })} | {new Date(item.starts_at).toLocaleString(undefined, {
                                                     hour: '2-digit',
                                                     minute: '2-digit'
+                                                })} - {new Date(item.ends_at).toLocaleString(undefined, {
+                                                    hour: '2-digit',
+                                                    minute: '2-digit'
                                                 })}</p>
+                                            </div>
+                                            <div className={'detail__order-block'}>
+                                                <Table/>
+                                                <p>Стол: {item.table_id}</p>
                                             </div>
                                             <div className={'detail__order-block'}>
                                                 <People/>
                                                 <p>Гостей: {item.guest_count}</p>
                                             </div>
                                         </div>
-                                        <button className={'detail__cansel'}>Cancel Booking</button>
+                                        <button className={'detail__cansel'} onClick={(e) => cancelBooking(e, item.id)}>Cancel Booking
+                                        </button>
                                     </div>
                                 ))}
 
@@ -340,7 +362,8 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
 
                             </div>
                         </div>
-                        <div className={'container__sections-right'}>
+                        <div className={'container__sections-right none'}>
+                            <RightBlock/>
                         </div>
                     </div>
                 </div>

@@ -42,12 +42,12 @@ export default function Header({ auth }: { auth: any }) {
               <nav className={'header__nav nav'}>
                 <ul className="nav__list">
                   <li className="nav__list-item">
-                    <a className={'active'} href="javascript:void(0)">
-                      Home
+                    <a className={'active'} href={route('main')}>
+                      Главная
                     </a>
                   </li>
                   <li className="nav__list-item">
-                    <a href="javascript:void(0)">
+                    <a href={route('feedback')}>
                       Связаться
                     </a>
                   </li>
@@ -97,12 +97,12 @@ export default function Header({ auth }: { auth: any }) {
                                   <div className="menu__body">
                                       <ul className="nav__list">
                                           <li className="nav__list-item">
-                                              <a className={'active'} href="javascript:void(0)">
-                                                  Home
+                                              <a className={'active'} href={route('main')}>
+                                                  Главная
                                               </a>
                                           </li>
                                           <li className="nav__list-item">
-                                              <a href="javascript:void(0)">
+                                              <a href={route('feedback')}>
                                                   Связаться
                                               </a>
                                           </li>

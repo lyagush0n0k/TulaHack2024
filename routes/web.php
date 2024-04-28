@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DetailController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ Route::get('/crsf', function (Request $request) {
     $token = $request->session()->token();
     return response()->json(['token' => $token]);
 })->name('crsf');
+
+Route::get('/feedback', [FeedbackController::class, 'getFeedback'])->name('feedback');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
