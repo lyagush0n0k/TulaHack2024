@@ -1,15 +1,9 @@
-import {Head, router} from '@inertiajs/react';
+import {Head} from '@inertiajs/react';
 import {PageProps, User} from '@/types';
 import AdminLayout from '@/Layouts/AdminLayout';
-import {PaginatedCollection} from '@/types/PaginatedCollection';
-import React, {useState} from 'react';
-import TableHead from '@/Components/Table/TableHead';
-import Table from '@/Components/Table/Table';
-import Pagination from '@/Components/Pagination/Pagination';
-import {getQuery} from '@/utils';
+import React from 'react';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
-import InputError from '@/Components/InputError';
 
 interface Props extends PageProps {
   user: User
