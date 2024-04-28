@@ -26,6 +26,7 @@ import {Autoplay, Pagination} from 'swiper/modules';
 import {PageProps} from '@/types';
 import PrimaryButton from '../Components/PrimaryButton';
 import {ruRU} from 'rsuite/locales';
+import RightBlock from "@/Components/RightBlock";
 
 const options = {
     Toolbar: {
@@ -340,7 +341,8 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
 
                             </div>
                         </div>
-                        <div className={'container__sections-right'}>
+                        <div className={'container__sections-right none'}>
+                            <RightBlock/>
                         </div>
                     </div>
                 </div>
