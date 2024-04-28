@@ -8,6 +8,7 @@ use App\Models\RestaurantScheduleItem;
 use App\Models\Table;
 use DateInterval;
 use DateTime;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -35,8 +36,12 @@ class DetailController extends Controller
         $start_time = strtotime($combined_datetime) * 1000;
         $end_time = (strtotime($combined_datetime) + 3600 * $request->get('duration')) * 1000;
 
+        error_log($start_time);
+        error_log($end_time);
+
         $available_tables = Table::select('tables.*')
             ->where('tables.restaurant_id', $request->get('restaurant_id'))
+            ->where('max_guests', '>', $request->get('guest_count'))
             ->leftJoin('bookings', function ($join) use ($start_time, $end_time) {
                 $join->on('tables.id', '=', 'bookings.table_id')
                     ->where(function ($query) use ($start_time, $end_time) {
@@ -49,6 +54,48 @@ class DetailController extends Controller
 
         return $available_tables;
     }
+
+    public function createBooking(Request $request)
+    {
+        /*$request->validate([
+            'restaurant_id' => 'required',
+            'user_id' => 'required',
+            'table_id' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'duration' => 'required',
+            'guest_count' => 'required'
+        ]);*/
+        error_log($request);
+
+        $date_only = substr($request->get('date'), 0, 10); // Extract YYYY-MM-DD part
+        $time_only = substr($request->get('time'), 10, 6); // Extract HH:mm:ss with timezone
+        $combined_datetime = $date_only . $time_only . 'Z';
+        $start_time = strtotime($combined_datetime) * 1000;
+        $end_time = (strtotime($combined_datetime) + 3600 * $request->get('duration')) * 1000;
+
+        $booking = new Booking([
+            'restaurant_id' => $request->get('restaurant_id'),
+            'table_id' => $request->get('table_id'),
+            'user_id' => $request->get('user_id'),
+            'guest_count' => $request->get('guest_count'),
+            'starts_at' => $start_time,
+            'ends_at' => $end_time,
+            'status' => 'waiting',
+        ]);
+        $booking->save();
+
+        return 200;
+    }
+
+    public function removeBooking(Request $request){
+        $request->validate([
+            'booking_id' => 'required',
+        ]);
+
+
+    }
+
 
     /**
      * @return Response

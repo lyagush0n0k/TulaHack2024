@@ -53,16 +53,16 @@ class BookingsSeeder extends Seeder
                 return;
             }
 
-            $startsAt = Carbon::now()->addDays(rand(1, 30))->addHours(rand(0, 23))->addMinutes(rand(0, 59));
-            $endsAt = $startsAt->copy()->addHours(rand(1, 4));
+            $startsAt = strtotime(Carbon::now()->addDays(rand(1, 30))->addHours(rand(0, 23))->addMinutes(rand(0, 59)));
+            $endsAt = strtotime(Carbon::now()->addDays(rand(1, 30))->addHours(rand(0, 23))->addMinutes(rand(0, 59))->addHours(rand(1, 4)));
 
             $booking = new Booking([
                 'restaurant_id' => $restaurant->id,
                 'table_id' => $table->id,
                 'user_id' => $user->id,
                 'guest_count' => rand(1, $table->max_guests),
-                'starts_at' => $startsAt,
-                'ends_at' => $endsAt,
+                'starts_at' => $startsAt*1000,
+                'ends_at' => $endsAt*1000,
                 'status' => $statuses[array_rand($statuses)],
             ]);
 
