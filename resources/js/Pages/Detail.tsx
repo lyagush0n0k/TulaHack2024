@@ -39,10 +39,11 @@ const options = {
 
 Fancybox.bind('[data-fancybox="Single image"]', options);
 
-export default function Detail({auth, restaurant, schedule, bookings}: PageProps & {
+export default function Detail({auth, restaurant, schedule, bookings, media}: PageProps & {
     restaurant: any[],
     schedule: any[],
-    bookings: any[]
+    bookings: any[],
+    media: string[],
 }) {
 
     const [formData, setFormData] = useState({
@@ -140,16 +141,13 @@ export default function Detail({auth, restaurant, schedule, bookings}: PageProps
                                             clickable: true,
                                         }}
                                     >
-                                        <SwiperSlide>
-                                            <img className={'detail__image'}
-                                                 src="https://www.nam-nyam.ru/upload/iblock/cca/ccae030b0714d7d9271654d02acde786.jpg"
-                                                 alt=""/>
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                            <img className={'detail__image'}
-                                                 src="https://www.nam-nyam.ru/upload/iblock/cca/ccae030b0714d7d9271654d02acde786.jpg"
-                                                 alt=""/>
-                                        </SwiperSlide>
+                                        {media.map((item: string, index: number) => (
+                                          <SwiperSlide key={index}>
+                                              <img className={'detail__image'}
+                                                   src={item}
+                                                   alt=""/>
+                                          </SwiperSlide>
+                                        ))}
                                     </Swiper>
                                 </div>
 
