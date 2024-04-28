@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MainLayout from '@/Layouts/MainLayout';
 import {Link} from '@inertiajs/react';
 // @ts-ignore
@@ -22,10 +22,10 @@ import '@fancyapps/ui/dist/fancybox/fancybox.css';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/less';
 import 'swiper/css/pagination';
-import {Autoplay, Pagination} from "swiper/modules";
-import {PageProps} from "@/types";
-import PrimaryButton from "../Components/PrimaryButton";
-import {ruRU} from "rsuite/locales";
+import {Autoplay, Pagination} from 'swiper/modules';
+import {PageProps} from '@/types';
+import PrimaryButton from '../Components/PrimaryButton';
+import {ruRU} from 'rsuite/locales';
 
 const options = {
     Toolbar: {
@@ -45,6 +45,22 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
     bookings: any[],
     media: string[],
 }) {
+    const [csrfToken, setCsrfToken] = useState('');
+
+    useEffect(() => {
+        // Fetch the CSRF token from the Laravel backend
+        async function fetchCsrfToken() {
+            try {
+                const response = await fetch(route('crsf'));
+                const {token} = await response.json();
+                setCsrfToken(token);
+            } catch (error) {
+                console.error('Error fetching CSRF token:', error);
+            }
+        }
+        fetchCsrfToken();
+    }, []);
+
 
     const [formData, setFormData] = useState({
         date: '',
@@ -97,8 +113,13 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
             duration: formData.duration.value,
             guest_count: formData.guests.value,
             table_id: formDataSend.table.value,
+            user_id: auth.user.id
         }), {
-            method: 'POST'
+            method: 'POST',
+            headers:{
+                'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+            }
+            // TODO: add CRSF token (disabled for now)
         })
 
         let responseData = await response.json();
@@ -292,18 +313,19 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                     <p>По данному времени свободных столиков нет</p>
                                 </div>
                                 <div className={'detail__container detail__container--booking'}>
-                                <div className={'detail__booking-left'}>
+                                    <div className={'detail__booking-left'}>
                                         <form className={'detail__form-order-submit'} action="">
                                             <div className={'detail__input'}>
                                                 <p>Номер столика:</p>
-                                                <Select placeholder={''} options={tableOptions} onChange={value => setFormDataSend({
-                                                    ...formDataSend,
-                                                    table: value
-                                                })}
+                                                <Select placeholder={''} options={tableOptions}
+                                                        onChange={value => setFormDataSend({
+                                                            ...formDataSend,
+                                                            table: value
+                                                        })}
                                                         className={'detail__select-time'}/>
                                             </div>
                                             <button className={'detail__button-submit' +
-                                                ' detail__button-submit--booking'} type={'submit'} onClick={orderSend}>
+                                            ' detail__button-submit--booking'} type={'submit'} onClick={orderSend}>
                                                 Забронировать
                                             </button>
                                         </form>

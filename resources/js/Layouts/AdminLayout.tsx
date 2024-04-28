@@ -34,7 +34,7 @@ export default function AdminLayout({ user, header, children }: PropsWithChildre
             active={route().current('admin.restaurants.*')}
           />
           <SidebarItem
-              href={route('admin.restaurants.index')}
+              href={route('admin.booking.index')}
               icon={(<LayoutGrid />)}
               text="Забронированные"
               active={route().current('admin.booking.index')}
