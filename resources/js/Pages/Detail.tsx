@@ -111,6 +111,8 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
 
         document.querySelector('.detail__container--booking').style.display = 'flex';
 
+        tableOptions = [];
+
         responseData.forEach((element) => {
             tableOptions.push({value: element.id, label: element.number});
         });

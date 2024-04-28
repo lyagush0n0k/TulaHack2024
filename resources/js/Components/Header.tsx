@@ -47,7 +47,7 @@ export default function Header({ auth }: { auth: any }) {
                     </a>
                   </li>
                   <li className="nav__list-item">
-                    <a href="javascript:void(0)">
+                    <a href={route('feedback')}>
                       Связаться
                     </a>
                   </li>
@@ -102,7 +102,7 @@ export default function Header({ auth }: { auth: any }) {
                                               </a>
                                           </li>
                                           <li className="nav__list-item">
-                                              <a href="javascript:void(0)">
+                                              <a href={route('feedback')}>
                                                   Связаться
                                               </a>
                                           </li>
