@@ -81,25 +81,15 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
         {value: '10', label: '10'},
     ];
 
-    const tableOptions = [
-        {value: '1', label: '1'},
-        {value: '2', label: '2'},
-        {value: '3', label: '3'},
-        {value: '4', label: '4'},
-        {value: '5', label: '5'},
-        {value: '6', label: '6'},
-        {value: '7', label: '7'},
-        {value: '8', label: '8'},
-        {value: '9', label: '9'},
-        {value: '10', label: '10'},
-    ];
+    var tableOptions = [];
 
     const fetchAvailableTables = async (e) => {
         e.preventDefault();
 
         const response = await fetch(route('booking.getAvailableTables', {
+            restaurant_id: restaurant.id,
             date: formData.date,
-            starting_time: formData.time.value,
+            time: formData.time,
             duration: formData.duration.value,
             guest_count: formData.guests.value
         }), {
@@ -108,6 +98,17 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
 
         let responseData = await response.json();
         console.log(responseData);
+
+        if (!responseData.length) {
+            document.querySelector('.detail__container--error').style.display = 'block';
+            return;
+        }
+
+        document.querySelector('.detail__container--booking').style.display = 'flex';
+
+        responseData.forEach((element) => {
+            tableOptions.push({value: element.id, label: element.number});
+        });
     };
 
     return (
@@ -142,11 +143,11 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                         }}
                                     >
                                         {media.map((item: string, index: number) => (
-                                          <SwiperSlide key={index}>
-                                              <img className={'detail__image'}
-                                                   src={item}
-                                                   alt=""/>
-                                          </SwiperSlide>
+                                            <SwiperSlide key={index}>
+                                                <img className={'detail__image'}
+                                                     src={item}
+                                                     alt=""/>
+                                            </SwiperSlide>
                                         ))}
                                     </Swiper>
                                 </div>
@@ -225,8 +226,13 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                         </div>
                                         <div className={'detail__input'}>
                                             <p>Время бронирования:</p>
-                                            <Select placeholder={''} options={timeOptions} value={formData.time}
-                                                    onChange={value => setFormData({...formData, time: value})}/>
+                                            <CustomProvider locale={ruRU}>
+                                                <DatePicker format="HH:mm"
+                                                            onChange={value => setFormData({
+                                                                ...formData,
+                                                                time: value
+                                                            })}/>
+                                            </CustomProvider>
                                         </div>
                                         <div className={'detail__input'}>
                                             <p>Длительность бронирования:</p>
@@ -238,17 +244,20 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                             <Select placeholder={''} options={peopleOptions} value={formData.guests}
                                                     onChange={value => setFormData({...formData, guests: value})}/>
                                         </div>
-                                        <PrimaryButton className={'detail__button-submit'}
-                                                       onClick={fetchAvailableTables}>
-                                            Найти
-                                        </PrimaryButton>
+                                        <div className={'detail__input'}>
+                                            <PrimaryButton className={'detail__button-submit'}
+                                                           onClick={fetchAvailableTables}>
+                                                Найти
+                                            </PrimaryButton>
+                                        </div>
+
                                     </form>
                                 </div>
                                 <div className={'detail__container detail__container--error'}>
                                     <p>По данному времени свободных столиков нет</p>
                                 </div>
                                 <div className={'detail__container detail__container--booking'}>
-                                    <div className={'detail__booking-left'}>
+                                <div className={'detail__booking-left'}>
                                         <form className={'detail__form-order-submit'} action="">
                                             <div className={'detail__input'}>
                                                 <p>Номер столика:</p>
@@ -256,7 +265,7 @@ export default function Detail({auth, restaurant, schedule, bookings, media}: Pa
                                                         className={'detail__select-time'}/>
                                             </div>
                                             <button className={'detail__button-submit' +
-                                            ' detail__button-submit--booking'} type={'submit'}>
+                                                ' detail__button-submit--booking'} type={'submit'}>
                                                 Забронировать
                                             </button>
                                         </form>
