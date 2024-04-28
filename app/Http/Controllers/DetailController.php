@@ -5,12 +5,41 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Restaurant;
 use App\Models\RestaurantScheduleItem;
-use http\Client\Curl\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class DetailController extends Controller
 {
+
+    public function getAvailableTables(Request $request)
+    {
+        $request->validate([
+            'date' => 'required',
+            'starting_time' => 'required',
+            'duration' => 'required',
+            'guest_count' => 'required'
+        ]);
+
+        $start_time = '2024-04-28 10:00:00'; // Начальное время выбранного интервала
+        $end_time = '2024-04-28 12:00:00'; // Конечное время выбранного интервала
+
+        $available_tables = DB::table('tables')
+            ->select('tables.id', 'tables.number')
+            ->leftJoin('bookings', function ($join) use ($start_time, $end_time) {
+                $join->on('tables.id', '=', 'bookings.table_id')
+                    ->where(function ($query) use ($start_time, $end_time) {
+                        $query->where('bookings.starts_at', '<', $end_time)
+                            ->where('bookings.ends_at', '>', $start_time);
+                    });
+            })
+            ->whereNull('bookings.id')
+            ->get();
+
+        return $available_tables;
+    }
+
     /**
      * @return Response
      */

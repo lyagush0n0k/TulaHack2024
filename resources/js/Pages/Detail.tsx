@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import MainLayout from '@/Layouts/MainLayout';
 import {Link} from '@inertiajs/react';
 // @ts-ignore
@@ -15,7 +15,7 @@ import Calendar from '../../../public/img/calendar.svg?react';
 import People from '../../../public/img/people.svg?react';
 import '../../less/common.blocks/detail/detail.less';
 import Select from 'react-select';
-import {DatePicker} from 'rsuite';
+import {CustomProvider, DatePicker} from 'rsuite';
 import 'rsuite/dist/rsuite.css';
 import {Fancybox} from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
@@ -24,6 +24,8 @@ import 'swiper/less';
 import 'swiper/css/pagination';
 import {Autoplay, Pagination} from "swiper/modules";
 import {PageProps} from "@/types";
+import PrimaryButton from "../Components/PrimaryButton";
+import {ruRU} from "rsuite/locales";
 
 const options = {
     Toolbar: {
@@ -42,6 +44,13 @@ export default function Detail({auth, restaurant, schedule, bookings}: PageProps
     schedule: any[],
     bookings: any[]
 }) {
+
+    const [formData, setFormData] = useState({
+        date: '',
+        time: '',
+        duration: '',
+        guests: ''
+    });
 
     const timeOptions = [
         {value: '1', label: '1'},
@@ -84,6 +93,21 @@ export default function Detail({auth, restaurant, schedule, bookings}: PageProps
         {value: '10', label: '10'},
     ];
 
+    const fetchAvailableTables = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch(route('booking.getAvailableTables', {
+            date: formData.date,
+            starting_time: formData.time.value,
+            duration: formData.duration.value,
+            guest_count: formData.guests.value
+        }), {
+            method: 'GET'
+        })
+
+        let responseData = await response.json();
+        console.log(responseData);
+    };
 
     return (
         <>
@@ -190,24 +214,36 @@ export default function Detail({auth, restaurant, schedule, bookings}: PageProps
                                 ))}
 
                                 <div className={'detail__container'}>
-                                    <form action="" className={'detail__order-send'}>
+                                    <form className={'detail__order-send'}>
                                         <div className={'detail__input'}>
                                             <p>Дата бронирования:</p>
-                                            <DatePicker/>
+                                            <CustomProvider locale={ruRU}>
+                                                <DatePicker oneTap format="dd MMMM yyyy" value={formData.date}
+                                                            onChange={value => setFormData({
+                                                                ...formData,
+                                                                date: value
+                                                            })}/>
+                                            </CustomProvider>
                                         </div>
                                         <div className={'detail__input'}>
                                             <p>Время бронирования:</p>
-                                            <Select placeholder={''} options={timeOptions}
-                                                    className={'detail__select-time'}/>
+                                            <Select placeholder={''} options={timeOptions} value={formData.time}
+                                                    onChange={value => setFormData({...formData, time: value})}/>
+                                        </div>
+                                        <div className={'detail__input'}>
+                                            <p>Длительность бронирования:</p>
+                                            <Select placeholder={''} options={timeOptions} value={formData.duration}
+                                                    onChange={value => setFormData({...formData, duration: value})}/>
                                         </div>
                                         <div className={'detail__input'}>
                                             <p>Количество людей:</p>
-                                            <Select placeholder={''} options={peopleOptions}
-                                                    className={'detail__select-people'}/>
+                                            <Select placeholder={''} options={peopleOptions} value={formData.guests}
+                                                    onChange={value => setFormData({...formData, guests: value})}/>
                                         </div>
-                                        <button className={'detail__button-submit'} type={'submit'}>
+                                        <PrimaryButton className={'detail__button-submit'}
+                                                       onClick={fetchAvailableTables}>
                                             Найти
-                                        </button>
+                                        </PrimaryButton>
                                     </form>
                                 </div>
                                 <div className={'detail__container detail__container--error'}>
